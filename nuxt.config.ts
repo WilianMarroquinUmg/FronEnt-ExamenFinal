@@ -7,6 +7,9 @@ srcDir: 'app',
     shim: false
   },
 
+  colorMode: {
+    preference: 'light'
+  },
 
   build: {
     transpile: ["vuetify"],
@@ -32,7 +35,8 @@ srcDir: 'app',
 
   sanctum: {
     mode: 'token',
-    baseUrl: 'https://naranjobakend.lat/',
+    baseUrl: 'http://base-backend-with-laravel11.test/',
+    // baseUrl: 'http://base-backend-with-laravel11.test/',
     userStateKey: 'sanctum.user.identity',
     redirectIfAuthenticated: true,
     redirectIfUnauthenticated: true,

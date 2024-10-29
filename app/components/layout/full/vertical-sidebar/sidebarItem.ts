@@ -22,52 +22,6 @@ const sidebarItem: menu[] = [
         value: 'home',
         to: '/',
     },
-    {
-        title: 'Pajas de Agua',
-        icon: 'mdi-water-outline',
-        value: 'PajaAgua',
-        to: '/pajas/',
-    },
-    {
-        title: 'Admin',
-        icon: 'mdi-account-cog',
-        value: '',
-        children: [
-            {
-                title: 'Users',
-                icon: 'mdi-account-multiple',
-                value: 'User',
-                to: '/users',
-            },
-            {
-                title: 'Residentes',
-                icon: 'mdi-account-group',
-                value: 'Residente',
-                to: '/residentes',
-            },
-
-            {
-                title: 'Catalogos',
-                icon: 'mdi-view-list',
-                value: '',
-                children: [
-                    {
-                        title: 'Tipos Adquisición',
-                        icon: 'mdi-book-plus-multiple',
-                        value: 'TipoAdquisicion',
-                        to: '/tipoadquisiciones',
-                    },
-                    {
-                        title: 'Direcciones',
-                        icon: 'mdi-home-group-minus',
-                        value: 'Direccion',
-                        to: '/direcciones',
-                    },
-                ],
-            },
-        ],
-    },
-
 ];
 
 
