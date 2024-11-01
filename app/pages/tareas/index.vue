@@ -2,7 +2,7 @@
 import {ref} from 'vue';
 import MiCard from "~/components/personalized/MiCard.vue";
 
-const { AlertCuestion } = useSweetAlert2();
+const {AlertCuestion} = useSweetAlert2();
 
 const cliente = useSanctumRequest();
 
@@ -37,14 +37,14 @@ const columnsItems = ref([
     "label": "Recordatorio",
     "field": "recordatorio.nombre"
   }
-] );
+]);
 
 columnsItems.value.push({
   label: 'Opciones',
   field: 'opciones',
   filterable: false,
   sortable: false,
-  width: '150px'
+  width: '200px'
 });
 
 let items = ref([]);
@@ -53,7 +53,7 @@ const getItems = async () => {
 
   try {
 
-    let res  = await cliente.get('api/tareas');
+    let res = await cliente.get('api/tareas');
 
     items.value = res.data
 
@@ -75,6 +75,28 @@ const deleteItem = async (id: number) => {
       let res = await cliente.delete('api/tareas/' + id);
 
       notifySuccess('Tarea Elimiado', res.data.message);
+
+      await getItems();
+
+    } catch (e) {
+
+      notifyError('Error', e.message);
+
+    }
+
+  }
+
+};
+
+const cumplir = async (id: number) => {
+
+  if ((await AlertCuestion('¿Estas seguro de cumplir esta Tarea?')).isConfirmed) {
+
+    try {
+
+      let res = await cliente.get('api/tarea-cumplir/' + id);
+
+      notifySuccess('Tarea Cumplida', res.data.message);
 
       await getItems();
 
@@ -115,7 +137,8 @@ active.value = 'Tarea';
     >
 
       <template #table-row="props">
-          <span v-if="props.column.field == 'opciones'">
+        <span v-if="props.column.field == 'opciones'">
+
             <UButton
                 icon="i-heroicons-eye"
                 size="sm"
@@ -123,6 +146,7 @@ active.value = 'Tarea';
                 variant="solid"
                 class="mr-1"
                 :to=" 'tareas/show/' + props.row.id "
+                :disabled="props.row.estado.nombre == 'Cumplida'"
             />
             <UButton
                 icon="i-heroicons-pencil-square"
@@ -131,7 +155,18 @@ active.value = 'Tarea';
                 variant="solid"
                 :to=" 'tareas/edit/' + props.row.id "
                 class="mr-1"
+                :disabled="props.row.estado.nombre == 'Cumplida'"
             />
+            <UButton
+                icon="i-heroicons-check-circle"
+                size="sm"
+                color="green"
+                @click="cumplir(props.row.id)"
+                variant="solid"
+                class="mr-1"
+                :disabled="props.row.estado.nombre == 'Cumplida'"
+            />
+
             <UButton
                 icon="i-heroicons-trash"
                 size="sm"
@@ -139,10 +174,28 @@ active.value = 'Tarea';
                 variant="solid"
                 @click="deleteItem(props.row.id)"
                 class="mr-1"
+                :disabled="props.row.estado.nombre == 'Cumplida'"
             />
 
 
           </span>
+
+        <span v-else-if="props.column.label == 'Estado'">
+
+
+             <UBadge color="green"
+                     variant="solid"
+                     label="Cumplida"
+                     v-if="props.formattedRow[props.column.field] == 'Cumplida'"
+             />
+
+              <UBadge color="yellow"
+                      variant="solid"
+                      label="Pendiente"
+                      v-else
+              />
+
+        </span>
         <span v-else>
             {{ props.formattedRow[props.column.field] }}
           </span>
