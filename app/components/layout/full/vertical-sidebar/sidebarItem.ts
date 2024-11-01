@@ -19,7 +19,7 @@ const sidebarItem: menu[] = [
     {
         title: 'Tareas',
         icon: 'mdi-home',
-        value: 'home',
+        value: 'Tarea',
         to: '/tareas',
     },
     {
@@ -44,6 +44,12 @@ const sidebarItem: menu[] = [
                 value: 'TareaPrioridad',
                 icon: 'mdi-account-group',
                 to: '/tareaprioridades',
+            },
+            {
+                title: 'Tarea Recordatorios',
+                value: 'TareaTiempoRecordatorio',
+                icon: 'mdi-account-group',
+                to: '/tareatiemporecordatorios',
             },
         ],
     },
