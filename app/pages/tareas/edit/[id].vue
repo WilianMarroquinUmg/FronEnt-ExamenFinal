@@ -183,7 +183,7 @@ const valoresInputFormulario1 = ref([
   },
   {
     "label": "Hora Ejecucion",
-    "type": "text",
+    "type": "time",
     "key": "hora_ejecucion"
   },
   {
@@ -253,7 +253,7 @@ active.value = 'Tarea';
               >
 
 
-                <UInput v-if="field.type == 'text' || field.type == 'number' || field.type == 'date'"
+                <UInput v-if="field.type == 'text' || field.type == 'number' || field.type == 'date' || field.type == 'time'"
                         v-model="state[field.key]"
                         :type="field.type"
                 />

@@ -26,7 +26,6 @@ const submit = async () => {
 
     await login(userCredentials.value);
 
-    esperar.value = false;
 
     toast.add({
       title: "Login Successful",
@@ -45,6 +44,7 @@ const submit = async () => {
     });
 
   }
+  esperar.value = false;
 };
 
 </script>
